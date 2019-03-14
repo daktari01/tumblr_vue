@@ -1,0 +1,36 @@
+#userform {
+  min-height: 100%;
+}
+
+.pic-form {
+  padding: 0 30px 20px 30px;
+  border: none;
+  box-shadow: 0 4px 6px 0 rgba(0,123,255, 0.2);
+}
+
+.form-img {
+  box-shadow: 0 4px 6px 0 rgba(0,123,255, 0.2);
+}
+
+.form-input {
+  padding-bottom: 20px;
+}
+
+.pic-form h4 {
+  color: #007bff;
+}
+
+.pic-form input, .pic-form select {
+  border-radius: 0px;
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0,123,255, 0.2);
+}
+
+.nav-item a:hover, .active {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+
+.footer {
+  text-align: center;
+}
