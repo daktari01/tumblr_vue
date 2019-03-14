@@ -2,9 +2,13 @@
   <section class="userform py-5" id="userform">
     <div class="container">
       <div class="row ">
-        <img src="../assets/images/reg_img.png" class="img-left img-fluid form-img">
+        <div class="col-md-4">
+          <img src="../assets/images/write.jpg" class="img-left img-fluid form-img">
+        </div>
         <div class="col-md-8 pic-form">
           <h4 class="pb-4">Please fill with your details</h4>
+          <div v-if="userErrors.message" class="error-messages">{{ userErrors.message }}</div>
+          <div class="d-none" v-else-if="userDetails.email">{{this.$toasted.show('User registered successfully', {type: 'success'}).goAway(4000)}}</div>
           <form v-on:submit.prevent="registerNewUser">
             <div class="form-row">
               <div class="form-group col-md-12 form-input">
@@ -37,7 +41,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "UserRegistration",
   data(){
@@ -50,9 +54,21 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapGetters([
+      'getUserErrors',
+      'getUserData',
+    ]),
+    userErrors() {
+      return this.$store.getters.getUserErrors;
+    },
+    userDetails() {
+      return this.$store.getters.getUserData;
+    },
+  },
   methods: {
     ...mapActions([
-
+      'createNewUser',
     ]),
     registerNewUser(){
       this.$store.dispatch('createNewUser', this.form)

@@ -8,6 +8,11 @@
   box-shadow: 0 4px 6px 0 rgba(0,123,255, 0.2);
 }
 
+.error-messages {
+  padding-bottom: 20px;
+  color: red;
+}
+
 .form-img {
   box-shadow: 0 4px 6px 0 rgba(0,123,255, 0.2);
 }

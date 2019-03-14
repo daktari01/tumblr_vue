@@ -2,22 +2,28 @@ import FireBaseService from "../../services/authfirebase";
 
 const user = {
   state: {
-    user: {}
+    user: {},
+    errors: {},
   },
   getters: {
-    getUserData: state => state.user
+    getUserData: state => state.user,
+    getUserErrors: state => state.errors,
   },
   mutations: {
-    setUserData: (state, payload) => state.user = payload
+    setUserData: (state, payload) => {
+      state.user = payload.user;
+    },
+    setUserErrors: (state, payload) => {
+      state.errors = payload;
+    }
   },
   actions: {
-    createNewUser: async({ dispatch }, payload) => {
+    createNewUser: async({ commit }, payload) => {
       try{
         let response = await FireBaseService.register({email: payload.userEmail, password: payload.password});
-        dispatch('setUserData');
-        console.log("Action called ====>", response);
+        commit('setUserData', response);
       } catch (error) {
-        console.log("Error--->", error);
+        commit('setUserErrors', error)
       }
     }
   },
