@@ -1,5 +1,6 @@
 import AuthBase from '../../components/AuthBase';
 import UserRegistration from '../../components/UserRegistration';
+import UserLogin from  '../../components/UserLogin';
 
 const auth = [
   {
@@ -10,6 +11,10 @@ const auth = [
         path: 'signup',
         component: UserRegistration
       },
+      {
+        path: 'signin',
+        component: UserLogin
+      }
     ],
   },
 ];
