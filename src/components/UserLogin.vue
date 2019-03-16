@@ -63,12 +63,13 @@ export default {
       'loginUser',
     ]),
     signinUser(){
-      this.$store.dispatch('loginUser', this.loginForm);
+      this.$store.dispatch('loginUser', this.loginForm).then(() => {
+        if(!this.$store.getters.getUserErrors.message) {
+          this.$router.push('/home');
+        }
+      });
     }
   },
 };
 </script>
 
-<style scoped>
-@import "../assets/styles/main.css";
-</style>

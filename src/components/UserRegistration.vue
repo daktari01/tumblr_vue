@@ -77,6 +77,3 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "../assets/styles/main.css";
-</style>

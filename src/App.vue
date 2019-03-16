@@ -1,13 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/auth/signup">Signup</router-link>
-      <router-link to="/auth/signin">Signin</router-link>
-    </div>
+    <Navbar></Navbar>
     <router-view />
   </div>
 </template>
+
+<script>
+import Navbar from './components/common/Navbar';
+export default {
+  name: 'app',
+  components: {
+    'Navbar': Navbar
+  }
+};
+
+</script>
 
 <style lang="css">
 @import "assets/styles/bootstrap-4.0.0-dist/css/bootstrap.min.css";

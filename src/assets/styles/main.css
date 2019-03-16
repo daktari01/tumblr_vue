@@ -2,6 +2,10 @@
   min-height: 100%;
 }
 
+.nav-item a {
+  color: white;
+}
+
 .pic-form {
   padding: 0 30px 20px 30px;
   border: none;
@@ -25,14 +29,19 @@
   color: #007bff;
 }
 
+.bg-primary {
+  background-color: #007bff;
+}
+
 .pic-form input, .pic-form select {
   border-radius: 0px;
   border: none;
   box-shadow: 0 4px 8px 0 rgba(0,123,255, 0.2);
 }
 
-.nav-item a:hover, .active {
-  border-bottom: 3px solid #007bff;
+.nav-item a:hover, a.active {
+  border-radius: 2px;
+  background-color: white;
   color: #007bff;
 }
 
