@@ -20,7 +20,7 @@ const user = {
     },
     setUserLogin: (state, payload) => {
       state.status.loggedIn = true;
-      state.status.email = payload.user.email;
+      state.status.email = payload.email;
     },
     setUserErrors: (state, payload) => {
       state.errors = payload;
@@ -37,8 +37,9 @@ const user = {
     },
     loginUser: async({ commit }, payload) => {
       try {
-        let response = await FireBaseService.signin({email: payload.userEmail, password: payload.password});
-        commit('setUserLogin', response);
+        await FireBaseService.signin({email: payload.userEmail, password: payload.password});
+        let user = await FireBaseService.user();
+        commit('setUserLogin', user);
       } catch (error) {
         commit('setUserErrors', error)
       }

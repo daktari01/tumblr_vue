@@ -7,6 +7,7 @@ const authfirebase = {
   signin: userData => firebase
     .auth()
     .signInWithEmailAndPassword(userData.email, userData.password),
+  user: () => firebase.auth().currentUser
 };
 
 export default authfirebase;
