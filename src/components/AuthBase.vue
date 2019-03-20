@@ -3,11 +3,9 @@
 </template>
 
 <script>
-export default {
-};
+export default {};
 </script>
 
 <style>
 @import "../assets/styles/main.css";
-
 </style>

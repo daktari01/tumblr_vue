@@ -3,19 +3,32 @@
     <div class="container">
       <div class="row ">
         <div class="col-md-4">
-          <img src="../assets/images/write.jpg" class="img-left img-fluid form-img">
+          <img
+            src="../assets/images/write.jpg"
+            class="img-left img-fluid form-img"
+          />
         </div>
         <div class="col-md-8 pic-form">
-          <h4 class="pb-4">Please fill with your details</h4>
-          <div v-if="userErrors.message" class="error-messages">{{ userErrors.message }}</div>
-          <div class="d-none" v-else-if="userLoggedin.loggedIn === true">{{this.$toasted.show('User logged in successfully', {type: 'success'}).goAway(4000)}}</div>
+          <h4 class="pb-4">Please log in</h4>
           <form v-on:submit.prevent="signinUser">
             <div class="form-row">
               <div class="form-group col-md-12 form-input">
-                <input type="email" class="form-control" v-model="loginForm.userEmail" id="userEmail" placeholder="Enter your email e.g johndoe@example.com">
+                <input
+                  type="email"
+                  class="form-control"
+                  v-model="loginForm.userEmail"
+                  id="userEmail"
+                  placeholder="Enter your email e.g johndoe@example.com"
+                />
               </div>
               <div class="form-group col-md-12 form-input">
-                <input type="password" class="form-control" v-model="loginForm.password" id="password" placeholder="Enter your password">
+                <input
+                  type="password"
+                  class="form-control"
+                  v-model="loginForm.password"
+                  id="password"
+                  placeholder="Enter your password"
+                />
               </div>
             </div>
             <div class="form-row">
@@ -35,40 +48,32 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "UserLogin",
   data() {
     return {
       loginForm: {
-        userEmail: '',
-        password: '',
+        userEmail: "",
+        password: ""
       }
     };
   },
   computed: {
-    ...mapGetters([
-      'getUserLogin',
-      'getUserErrors',
-    ]),
+    ...mapGetters(["getUserLogin", "getErrorMessages"]),
     userErrors() {
-      return this.$store.getters.getUserErrors;
-    },
-    userLoggedin() {
-      return this.$store.getters.getUserLogin;
+      return this.$store.getters.getErrorMessages;
     }
   },
   methods: {
-    ...mapActions([
-      'loginUser',
-    ]),
-    signinUser(){
-      this.$store.dispatch('loginUser', this.loginForm);
+    ...mapActions(["loginUser"]),
+    signinUser() {
+      this.$store.dispatch("loginUser", this.loginForm).then(() => {
+        if (this.userErrors.length === 0) {
+          this.$router.push("/home");
+        }
+      });
     }
-  },
+  }
 };
 </script>
-
-<style scoped>
-@import "../assets/styles/main.css";
-</style>

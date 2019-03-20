@@ -2,48 +2,50 @@ import FireBaseService from "../../services/authfirebase";
 
 const user = {
   state: {
-    user: {},
-    errors: {},
-    status: {
-      loggedIn: false,
-      email: '',
-    },
+    currentUser: {}
   },
   getters: {
-    getUserData: state => state.user,
-    getUserLogin: state => state.status,
-    getUserErrors: state => state.errors,
+    getCurrentUser: state => state.currentUser
   },
   mutations: {
-    setUserData: (state, payload) => {
-      state.user = payload.user;
-    },
-    setUserLogin: (state, payload) => {
-      state.status.loggedIn = true;
-      state.status.email = payload.user.email;
-    },
-    setUserErrors: (state, payload) => {
-      state.errors = payload;
+    setCurrentUser: (state, payload) => {
+      state.currentUser = payload;
     }
   },
   actions: {
-    createNewUser: async({ commit }, payload) => {
+    createNewUser: async ({ commit, dispatch }, payload) => {
       try {
-        let response = await FireBaseService.register({email: payload.userEmail, password: payload.password});
-        commit('setUserData', response);
+        commit("resetNotifications");
+        await FireBaseService.register({
+          email: payload.userEmail,
+          password: payload.password
+        });
+        commit("setNotifications", {
+          message: "Registration success!",
+          type: "success"
+        });
       } catch (error) {
-        commit('setUserErrors', error)
+        dispatch("actionSetErrorMessages", [error.message]);
       }
     },
-    loginUser: async({ commit }, payload) => {
+    loginUser: async ({ commit, dispatch }, payload) => {
       try {
-        let response = await FireBaseService.signin({email: payload.userEmail, password: payload.password});
-        commit('setUserLogin', response);
+        commit("resetNotifications");
+        await FireBaseService.signin({
+          email: payload.userEmail,
+          password: payload.password
+        });
+        let currentUser = await FireBaseService.user();
+        commit("setCurrentUser", currentUser);
+        commit("setNotifications", {
+          message: "Login success!",
+          type: "success"
+        });
       } catch (error) {
-        commit('setUserErrors', error)
+        dispatch("actionSetErrorMessages", [error.message]);
       }
     }
-  },
+  }
 };
 
 export default user;

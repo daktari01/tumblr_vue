@@ -4,7 +4,7 @@ const config = {
   databaseURL: process.env.VUE_APP_DATABASE_URL,
   storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
   projectId: process.env.VUE_APP_PROJECT_ID,
-  messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
+  messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID
 };
 
 export default config;

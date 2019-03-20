@@ -3,25 +3,54 @@
     <div class="container">
       <div class="row ">
         <div class="col-md-4">
-          <img src="../assets/images/write.jpg" class="img-left img-fluid form-img">
+          <img
+            src="../assets/images/write.jpg"
+            class="img-left img-fluid form-img"
+          />
         </div>
         <div class="col-md-8 pic-form">
-          <h4 class="pb-4">Please fill with your details</h4>
-          <div v-if="userErrors.message" class="error-messages">{{ userErrors.message }}</div>
-          <div class="d-none" v-else-if="userDetails.email">{{this.$toasted.show('User registered successfully', {type: 'success'}).goAway(4000)}}</div>
+          <h4 class="pb-4">Please fill in your details to register</h4>
+          <div v-if="userErrors.message" class="error-messages">
+            {{ userErrors.message }}
+          </div>
           <form v-on:submit.prevent="registerNewUser">
             <div class="form-row">
               <div class="form-group col-md-12 form-input">
-                <input id="username" name="username" v-model="form.username" placeholder="Enter your username" class="form-control" type="text">
+                <input
+                  id="username"
+                  name="username"
+                  v-model="form.username"
+                  placeholder="Enter your username"
+                  class="form-control"
+                  type="text"
+                />
               </div>
               <div class="form-group col-md-12 form-input">
-                <input type="email" class="form-control" v-model="form.userEmail" id="userEmail" placeholder="Enter your email e.g johndoe@example.com">
+                <input
+                  type="email"
+                  class="form-control"
+                  v-model="form.userEmail"
+                  id="userEmail"
+                  placeholder="Enter your email e.g johndoe@example.com"
+                />
               </div>
               <div class="form-group col-md-12 form-input">
-                <input type="password" class="form-control" v-model="form.password" id="password" placeholder="Enter your password">
+                <input
+                  type="password"
+                  class="form-control"
+                  v-model="form.password"
+                  id="password"
+                  placeholder="Enter your password"
+                />
               </div>
               <div class="form-group col-md-12 form-input">
-                <input type="password" class="form-control" v-model="form.confirmPassword" id="confirmPassword" placeholder="Confirm your password">
+                <input
+                  type="password"
+                  class="form-control"
+                  v-model="form.confirmPassword"
+                  id="confirmPassword"
+                  placeholder="Confirm your password"
+                />
               </div>
             </div>
             <div class="form-row">
@@ -44,39 +73,31 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "UserRegistration",
-  data(){
+  data() {
     return {
       form: {
-        username: '',
-        userEmail: '',
-        password: '',
-        confirmPassword: '',
+        username: "",
+        userEmail: "",
+        password: "",
+        confirmPassword: ""
       }
     };
   },
   computed: {
-    ...mapGetters([
-      'getUserErrors',
-      'getUserData',
-    ]),
+    ...mapGetters(["getErrorMessages", "getUserData"]),
     userErrors() {
-      return this.$store.getters.getUserErrors;
-    },
-    userDetails() {
-      return this.$store.getters.getUserData;
-    },
+      return this.$store.getters.getErrorMessages;
+    }
   },
   methods: {
-    ...mapActions([
-      'createNewUser',
-    ]),
-    registerNewUser(){
-      this.$store.dispatch('createNewUser', this.form)
+    ...mapActions(["createNewUser"]),
+    registerNewUser() {
+      this.$store.dispatch("createNewUser", this.form).then(() => {
+        if (this.userErrors.length === 0) {
+          this.$router.push("/auth/signin");
+        }
+      });
     }
   }
 };
 </script>
-
-<style scoped>
-@import "../assets/styles/main.css";
-</style>
