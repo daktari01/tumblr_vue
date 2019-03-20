@@ -1,18 +1,16 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from "vue";
+import Router from "vue-router";
 
 // Import Modules
-import Auth from './modules/authentication';
+import Auth from "./modules/authentication";
 
 Vue.use(Router);
 
-const routes = [
-  ...Auth,
-];
+const routes = [...Auth];
 
 const router = new Router({
-  mode: 'history',
-  routes,
+  mode: "history",
+  routes
 });
 
 export default router;

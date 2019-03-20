@@ -1,25 +1,25 @@
-import AuthBase from '../../components/AuthBase';
-import UserRegistration from '../../components/UserRegistration';
-import UserLogin from  '../../components/UserLogin';
+import AuthBase from "../../components/AuthBase";
+import UserRegistration from "../../components/UserRegistration";
+import UserLogin from "../../components/UserLogin";
 
 const auth = [
   {
-    path: '/auth',
+    path: "/auth",
     component: AuthBase,
     children: [
       {
-        path: 'signup',
+        path: "signup",
         component: UserRegistration
       },
       {
-        path: 'signin',
+        path: "signin",
         component: UserLogin
       },
       {
-        path: 'signout',
+        path: "signout"
       }
-    ],
-  },
+    ]
+  }
 ];
 
 export default auth;

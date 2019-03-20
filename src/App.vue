@@ -7,16 +7,15 @@
 </template>
 
 <script>
-import Navbar from './components/common/Navbar';
-import Notification from './components/common/Notification';
+import Navbar from "./components/common/Navbar";
+import Notification from "./components/common/Notification";
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    'Navbar': Navbar,
-    'Notification': Notification,
+    Navbar: Navbar,
+    Notification: Notification
   }
 };
-
 </script>
 
 <style lang="css">

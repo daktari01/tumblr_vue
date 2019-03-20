@@ -2,13 +2,13 @@ const notifications = {
   state: {
     errorMessages: [],
     notifications: {
-      message: '',
-      type: '',
-    },
+      message: "",
+      type: ""
+    }
   },
   getters: {
     getErrorMessages: state => state.errorMessages,
-    getNotifications: state => state.notifications,
+    getNotifications: state => state.notifications
   },
   mutations: {
     setErrorMessages: (state, payload) => {
@@ -20,12 +20,17 @@ const notifications = {
       state.notifications.message = payload.message;
       state.notifications.type = payload.type;
     },
+    resetNotifications: state => {
+      state.notifications.message = null;
+      state.notifications.type = null;
+      state.errorMessages = [];
+    }
   },
   actions: {
     actionSetErrorMessages: ({ commit }, payload) => {
-      commit('setErrorMessages', payload);
-    },
-  },
+      commit("setErrorMessages", payload);
+    }
+  }
 };
 
 export default notifications;
