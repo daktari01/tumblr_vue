@@ -6,9 +6,8 @@
           <img src="../assets/images/write.jpg" class="img-left img-fluid form-img">
         </div>
         <div class="col-md-8 pic-form">
-          <h4 class="pb-4">Please fill with your details</h4>
+          <h4 class="pb-4">Please fill in your details to register</h4>
           <div v-if="userErrors.message" class="error-messages">{{ userErrors.message }}</div>
-          <div class="d-none" v-else-if="userDetails.email">{{this.$toasted.show('User registered successfully', {type: 'success'}).goAway(4000)}}</div>
           <form v-on:submit.prevent="registerNewUser">
             <div class="form-row">
               <div class="form-group col-md-12 form-input">
@@ -56,11 +55,11 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getUserErrors',
+      'getErrorMessages',
       'getUserData',
     ]),
     userErrors() {
-      return this.$store.getters.getUserErrors;
+      return this.$store.getters.getErrorMessages;
     },
     userDetails() {
       return this.$store.getters.getUserData;
@@ -71,7 +70,11 @@ export default {
       'createNewUser',
     ]),
     registerNewUser(){
-      this.$store.dispatch('createNewUser', this.form)
+      this.$store.dispatch('createNewUser', this.form).then(() => {
+        if(this.userErrors.length === 0) {
+          this.$router.push('/auth/signin');
+        }
+      });
     }
   }
 };

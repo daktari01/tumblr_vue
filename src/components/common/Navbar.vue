@@ -12,13 +12,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link v-if="userStatus === false" class="nav-link" to="/auth/signin">Signin</router-link>
+            <router-link v-if="userStatus === true" class="nav-link" to="/auth/signin">Signin</router-link>
           </li>
           <li class="nav-item">
-            <router-link v-if="userStatus === false" class="nav-link" to="/auth/signup">Signup</router-link>
+            <router-link v-if="userStatus === true" class="nav-link" to="/auth/signup">Signup</router-link>
           </li>
           <li class="nav-item">
-            <router-link v-if="userStatus === true" class="nav-link" to="/auth/signup">Sign out</router-link>
+            <router-link v-if="userStatus === false" class="nav-link" to="/auth/signout">Sign out</router-link>
           </li>
         </ul>
       </div>
@@ -32,12 +32,21 @@ export default {
   name: "Navbar",
   computed: {
     ...mapGetters([
-      'getUserLogin',
+      'getCurrentUser',
     ]),
     userStatus() {
-      return this.$store.getters.getUserLogin.loggedIn;
+      return this.isEmpty(this.$store.getters.getCurrentUser);
     }
   },
+  methods: {
+    isEmpty: (obj) => {
+      for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+          return false;
+      }
+      return true;
+    }
+  }
 };
 </script>
 

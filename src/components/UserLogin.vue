@@ -6,9 +6,7 @@
           <img src="../assets/images/write.jpg" class="img-left img-fluid form-img">
         </div>
         <div class="col-md-8 pic-form">
-          <h4 class="pb-4">Please fill with your details</h4>
-          <div v-if="userErrors.message" class="error-messages">{{ userErrors.message }}</div>
-          <div class="d-none" v-else-if="userLoggedin.loggedIn === true">{{this.$toasted.show('User logged in successfully', {type: 'success'}).goAway(4000)}}</div>
+          <h4 class="pb-4">Please log in</h4>
           <form v-on:submit.prevent="signinUser">
             <div class="form-row">
               <div class="form-group col-md-12 form-input">
@@ -49,14 +47,11 @@ export default {
   computed: {
     ...mapGetters([
       'getUserLogin',
-      'getUserErrors',
+      'getErrorMessages',
     ]),
     userErrors() {
-      return this.$store.getters.getUserErrors;
+      return this.$store.getters.getErrorMessages;
     },
-    userLoggedin() {
-      return this.$store.getters.getUserLogin;
-    }
   },
   methods: {
     ...mapActions([
@@ -64,7 +59,7 @@ export default {
     ]),
     signinUser(){
       this.$store.dispatch('loginUser', this.loginForm).then(() => {
-        if(!this.$store.getters.getUserErrors.message) {
+        if(this.$store.getters.getErrorMessages.length === 0) {
           this.$router.push('/home');
         }
       });

@@ -14,6 +14,9 @@ const auth = [
       {
         path: 'signin',
         component: UserLogin
+      },
+      {
+        path: 'signout',
       }
     ],
   },
